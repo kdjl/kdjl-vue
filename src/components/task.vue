@@ -20,6 +20,21 @@
             </div>
             <div class="text">
                 <div class="title">测试任务-口袋的起源</div>
+                <div class="task-content">
+                    <task-info title="任务描述" text="接受地点:任务使者 <br>
+                            接受描述: <br>
+                            合成,是提升宠物成长的办法之一,去捕捉宠物合成吧!"></task-info>
+                    <task-info title="任务目标" text="击杀 金波姆王 100个"></task-info>
+                    <task-info title="任务进度" text="已击杀 金波姆王 (0/100) 未完成"></task-info>
+                    <task-info title="任务奖励" text="获得物品：捕捉球大礼包 20个 <br>
+                            中练丸 20个 <br>
+                            金币 300000 个"></task-info>
+                </div>
+                <div class="btn-group">
+                    <kd-button text="接受"></kd-button>
+                    <kd-button disabled="true" text="完成"></kd-button>
+                    <kd-button disabled="true" text="放弃"></kd-button>
+                </div>
             </div>
         </div>
         <div @click="$emit('task-exit')" class="exit"></div>
@@ -27,6 +42,8 @@
 </template>
 
 <script>
+    import taskInfo from './taskInfo'
+    import button from './button'
     export default {
         name: "task",
         props: ['exit'],
@@ -59,11 +76,30 @@
                 console.log(str)
                 return this.taskActives.indexOf(str) !== -1
             }
+        },
+        components: {
+            'task-info': taskInfo,
+            'kd-button': button
         }
     }
 </script>
 
 <style scoped lang="scss">
+    .task-content {
+        overflow: auto;
+        height: 280px;
+    }
+
+    .btn-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 27px;
+        > * {
+            margin: 0 5px;
+        }
+    }
+
     .exit {
         width: 20px;
         height: 20px;

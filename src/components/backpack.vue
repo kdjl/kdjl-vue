@@ -19,16 +19,17 @@
             </div>
         </div>
         <div class="btn-group">
-            <button @click="make" class="btn">使用</button>
-            <button class="btn">丢弃</button>
-            <button class="btn">批量使用</button>
-            <button class="btn">放入仓库</button>
+            <kd-button @click="make" text="使用"></kd-button>
+            <kd-button text="丢弃"></kd-button>
+            <kd-button text="批量使用"></kd-button>
+            <kd-button text="放入仓库"></kd-button>
         </div>
         <div class="exit" @click="$emit('backpack-exit')"></div>
     </div>
 </template>
 
 <script>
+    import button from './button'
     export default {
         name: "backpack",
         props: ['backpacks'],
@@ -39,11 +40,14 @@
         },
         methods: {
             active: function (e) {
-                this.activeItem = e;
+                this.activeItem = e
             },
             make: function () {
                 this.$emit('console', this.activeItem)
             }
+        },
+        components: {
+            'kd-button': button
         }
     }
 </script>
