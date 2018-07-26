@@ -28,7 +28,7 @@
 
 <style scoped lang="scss">
     .title-logo {
-        background: url("../../public/images/cities/map_logo_new.png") no-repeat;
+        background: url("../../../public/images/cities/map_logo_new.png") no-repeat;
         width: 788px;
         height: 311px;
         /*z-index: 10;*/
@@ -39,7 +39,7 @@
     }
 
     .map {
-        background: url("../../public/images/cities/map.png") no-repeat;
+        background: url("../../../public/images/cities/map.png") no-repeat;
         width: 789px;
         height: 312px;
         > *:not(.title-logo) {
@@ -47,7 +47,7 @@
             cursor: pointer;
         }
         .next {
-            background: url("../../public/images/cities/next.png") no-repeat;
+            background: url("../../../public/images/cities/next.png") no-repeat;
             top: 125px;
             right: 0;
             z-index: 10;
@@ -69,7 +69,7 @@
             width: 202px;
             height: 154px;
             &:hover {
-                background: url('../../public/images/cities/1.png') no-repeat;
+                background: url('../../../public/images/cities/1.png') no-repeat;
             }
         }
 
@@ -79,7 +79,7 @@
             width: 110px;
             height: 74px;
             &:hover {
-                background: url('../../public/images/cities/2.png') no-repeat;
+                background: url('../../../public/images/cities/2.png') no-repeat;
             }
         }
 
@@ -89,7 +89,7 @@
             width: 221px;
             height: 200px;
             &:hover {
-                background: url('../../public/images/cities/3.png') no-repeat;
+                background: url('../../../public/images/cities/3.png') no-repeat;
             }
         }
 
@@ -99,7 +99,7 @@
             width: 150px;
             height: 141px;
             &:hover {
-                background: url('../../public/images/cities/4.png') no-repeat;
+                background: url('../../../public/images/cities/4.png') no-repeat;
             }
         }
 
@@ -109,7 +109,7 @@
             width: 190px;
             height: 137px;
             &:hover {
-                background: url('../../public/images/cities/5.png') no-repeat;
+                background: url('../../../public/images/cities/5.png') no-repeat;
             }
         }
 
@@ -119,7 +119,7 @@
             right: 0;
             top: 0;
             &:hover {
-                background: url('../../public/images/cities/6.png') no-repeat;
+                background: url('../../../public/images/cities/6.png') no-repeat;
             }
         }
 
@@ -129,7 +129,7 @@
             right: 0;
             bottom: 19px;
             &:hover {
-                background: url('../../public/images/cities/7.png') no-repeat;
+                background: url('../../../public/images/cities/7.png') no-repeat;
             }
         }
 
@@ -139,7 +139,7 @@
             bottom: 80px;
             right: 270px;
             &:hover {
-                background: url('../../public/images/cities/8.png') no-repeat;
+                background: url('../../../public/images/cities/8.png') no-repeat;
             }
         }
     }

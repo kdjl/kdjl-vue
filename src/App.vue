@@ -8,13 +8,19 @@
                             <img src="../public/images/index/12.png" alt="野外探险">
                         </div>
                         <div class="item">
-                            <img src="../public/images/index/9.png" alt="中心城镇">
+                            <router-link to="/">
+                                <img src="../public/images/index/9.png" alt="中心城镇">
+                            </router-link>
                         </div>
                         <div class="item">
-                            <img src="../public/images/index/3.png" alt="宠物资料">
+                            <router-link to="/petInfo">
+                                <img src="../public/images/index/3.png" alt="宠物资料">
+                            </router-link>
                         </div>
                         <div class="item">
-                            <img src="../public/images/index/6.png" alt="个人信息">
+                            <router-link to="/userInfo">
+                                <img src="../public/images/index/6.png" alt="个人信息">
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -129,6 +135,12 @@
                 position: absolute;
                 top: 130px;
                 left: 20px;
+                > .item {
+                    cursor: pointer;
+                    img:hover {
+                        width: 150px;
+                    }
+                }
             }
         }
         .right {
@@ -267,5 +279,9 @@
     input, button {
         outline: none;
         border: none;
+    }
+
+    .hidden {
+        display: none;
     }
 </style>

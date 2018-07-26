@@ -18,7 +18,7 @@
             pet: function () {
                 alert('暂未开放，敬请期待！')
             }
-        }
+        },
     }
 </script>
 
@@ -28,7 +28,7 @@
     }
 
     .map {
-        background: url("../../public/images/cities/map2.png");
+        background: url("../../../public/images/cities/map2.png");
         width: 790px;
         height: 319px;
         > *:not(.title-logo) {
@@ -36,7 +36,7 @@
             cursor: pointer;
         }
         .title-logo {
-            background: url("../../public/images/cities/map_logo2_new.png");
+            background: url("../../../public/images/cities/map_logo2_new.png");
             width: 790px;
             height: 319px;
         }
@@ -46,7 +46,7 @@
             width: 149px;
             height: 133px;
             &:hover {
-                background: url("../../public/images/cities/9.png");
+                background: url("../../../public/images/cities/9.png");
             }
         }
 
@@ -56,7 +56,7 @@
             bottom: 0;
             left: 334px;
             &:hover {
-                background: url("../../public/images/cities/10.png");
+                background: url("../../../public/images/cities/10.png");
             }
         }
 
@@ -66,7 +66,7 @@
             bottom: 8px;
             left: 605px;
             &:hover {
-                background: url("../../public/images/cities/11.png");
+                background: url("../../../public/images/cities/11.png");
             }
         }
 
@@ -76,12 +76,12 @@
             top: 0;
             right: 58px;
             &:hover {
-                background: url("../../public/images/cities/12.png");
+                background: url("../../../public/images/cities/12.png");
             }
         }
 
         .next {
-            background: url('../../public/images/cities/next.png');
+            background: url('../../../public/images/cities/next.png');
             left: 0;
             top: 105px;
             transform: rotate(180deg);
