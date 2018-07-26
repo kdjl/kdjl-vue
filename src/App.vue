@@ -19,7 +19,9 @@
                     </div>
                 </div>
                 <div class="right">
-                    <div class="content"></div>
+                    <div class="content">
+                        <router-view></router-view>
+                    </div>
                     <div class="icons">
                         <div @click="backpackToggle" title="背包"></div>
                         <div title="消息"></div>
@@ -134,6 +136,10 @@
             background: url(../public/images/index/content.jpg) no-repeat;
             width: 803px;
             height: 369px;
+            .content {
+                position: absolute;
+                top: 35px;
+            }
             .icons {
                 position: absolute;
                 display: flex;
