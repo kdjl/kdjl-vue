@@ -4,6 +4,7 @@ import CenterCity from './views/city/CenterCity'
 import TwoCity from './views/city/TwoCity'
 import PetInfo from './views/PetInfo'
 import UserInfo from './views/UserInfo'
+import Explore from './views/Explore'
 
 Vue.use(Router)
 
@@ -13,5 +14,6 @@ export default new Router({
         {path: '/twoCity', component: TwoCity, meta: {title: '副城镇'}},
         {path: '/petInfo', component: PetInfo, meta: {title: '宠物资料'}},
         {path: '/userInfo', component: UserInfo, meta: {title: '个人信息'}},
+        {path: '/explore', component: Explore, meta: {title: '野外探险'}},
     ]
 })

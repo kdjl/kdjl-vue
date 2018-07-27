@@ -5,7 +5,9 @@
                 <div class="left">
                     <div class="items">
                         <div class="item">
-                            <img src="../public/images/index/12.png" alt="野外探险">
+                            <router-link to="/explore">
+                                <img src="../public/images/index/12.png" alt="野外探险">
+                            </router-link>
                         </div>
                         <div class="item">
                             <router-link to="/">
