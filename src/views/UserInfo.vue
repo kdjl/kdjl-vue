@@ -1,5 +1,5 @@
 <template>
-    <div class="main">
+    <div class="all">
         <div class="left fl">
             <div class="user-name">
                 玩家名称：<span class="name">永恒之恋</span>
