@@ -61,7 +61,8 @@
             </div>
         </div>
         <div class="bg"></div>
-        <backpack @console="consoleToggle" @backpack-exit="backpackToggle" :backpacks="backpacks" v-show="backpackShow"></backpack>
+        <backpack @console="consoleToggle" @backpack-exit="backpackToggle" :backpacks="backpacks"
+                  v-show="backpackShow"></backpack>
         <task @task-exit="taskToggle" v-show="taskShow"></task>
     </div>
 </template>
@@ -70,6 +71,7 @@
     import backpack from './components/backpack'
     import console from './components/console'
     import task from './components/task'
+
     export default {
         name: 'app',
         data() {
@@ -78,17 +80,447 @@
                 taskShow: false,
                 consoleShow: false,
                 consoleContext: '',
-                backpacks: {
-                    icon: '../../public/images/backpack/1.gif',
-                    name: '治疗药水',
-                    type: '增益类',
-                    number: '100'
-                }
+                backpacks: [
+                    {
+                        icon: '1.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '2.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '3.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '4.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '5.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },{
+                        icon: '1.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '2.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '3.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '4.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '5.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },{
+                        icon: '1.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '2.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '3.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '4.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '5.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },{
+                        icon: '1.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '2.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '3.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '4.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '5.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },{
+                        icon: '1.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '2.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '3.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '4.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '5.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },{
+                        icon: '1.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '2.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '3.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '4.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '5.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },{
+                        icon: '1.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '2.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '3.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '4.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '5.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },{
+                        icon: '1.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '2.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '3.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '4.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '5.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },{
+                        icon: '1.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '2.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '3.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '4.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '5.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },{
+                        icon: '1.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '2.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '3.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '4.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '5.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },{
+                        icon: '1.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '2.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '3.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '4.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '5.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },{
+                        icon: '1.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '2.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '3.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '4.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '5.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },{
+                        icon: '1.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '2.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '3.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '4.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '5.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },{
+                        icon: '1.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '2.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '3.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '4.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '5.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },{
+                        icon: '1.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '2.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '3.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '4.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    },
+                    {
+                        icon: '5.gif',
+                        name: '治疗药水',
+                        type: '增益类',
+                        number: '100'
+                    }
+                ]
             }
         },
-        computed: {
-
-        },
+        computed: {},
         methods: {
             backpackToggle: function () {
                 this.backpackShow = !this.backpackShow
@@ -240,6 +672,7 @@
         position: absolute;
         left: 27%;
         top: 20%;
+        z-index: 10;
     }
 
     .backpack {

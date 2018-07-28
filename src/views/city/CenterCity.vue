@@ -4,14 +4,30 @@
         <div class="next">
             <router-link to="/twoCity"></router-link>
         </div>
-        <div @click="exchange" class="exchange"></div>
-        <div @click="exchange" class="pasture"></div>
-        <div @click="exchange" class="mystery"></div>
-        <div @click="exchange" class="warehouse"></div>
-        <div @click="exchange" class="prop"></div>
-        <div @click="exchange" class="smithy"></div>
-        <div @click="exchange" class="palace"></div>
-        <div @click="exchange" class="notice"></div>
+        <div class="exchange">
+            <router-link to="/exchange"></router-link>
+        </div>
+        <div class="pasture">
+            <router-link to="/pasture"></router-link>
+        </div>
+        <div class="mystery">
+            <router-link to="/mysteryShop"></router-link>
+        </div>
+        <div class="warehouse">
+            <router-link to="/warehouse"></router-link>
+        </div>
+        <div class="prop">
+            <router-link to="/propShop"></router-link>
+        </div>
+        <div class="smithy">
+            <router-link to="/propShop"></router-link>
+        </div>
+        <div @click="exchange" class="palace">
+            <router-link to="/propShop"></router-link>
+        </div>
+        <div @click="exchange" class="notice">
+            <router-link to="/propShop"></router-link>
+        </div>
     </div>
 </template>
 
@@ -66,8 +82,10 @@
         .exchange {
             bottom: 7px;
             left: 11px;
-            width: 202px;
-            height: 154px;
+            > a {
+                width: 202px;
+                height: 154px;
+            }
             &:hover {
                 background: url('../../../public/images/cities/1.png') no-repeat;
             }
@@ -78,6 +96,10 @@
             left: 0;
             width: 110px;
             height: 74px;
+            > a {
+                width: 110px;
+                height: 74px;
+            }
             &:hover {
                 background: url('../../../public/images/cities/2.png') no-repeat;
             }
@@ -86,8 +108,10 @@
         .mystery {
             top: 20px;
             left: 183px;
-            width: 221px;
-            height: 200px;
+            > a {
+                width: 221px;
+                height: 200px;
+            }
             &:hover {
                 background: url('../../../public/images/cities/3.png') no-repeat;
             }
@@ -96,8 +120,10 @@
         .warehouse {
             top: 0;
             right: 312px;
-            width: 150px;
-            height: 141px;
+            > a {
+                width: 150px;
+                height: 141px;
+            }
             &:hover {
                 background: url('../../../public/images/cities/4.png') no-repeat;
             }
@@ -106,38 +132,46 @@
         .prop {
             right: 123px;
             top: 0;
-            width: 190px;
-            height: 137px;
+            > a {
+                width: 190px;
+                height: 137px;
+            }
             &:hover {
                 background: url('../../../public/images/cities/5.png') no-repeat;
             }
         }
 
         .smithy {
-            width: 142px;
-            height: 162px;
             right: 0;
             top: 0;
+            > a {
+                width: 142px;
+                height: 162px;
+            }
             &:hover {
                 background: url('../../../public/images/cities/6.png') no-repeat;
             }
         }
 
         .palace {
-            width: 286px;
-            height: 178px;
             right: 0;
             bottom: 19px;
+            > a {
+                width: 286px;
+                height: 178px;
+            }
             &:hover {
                 background: url('../../../public/images/cities/7.png') no-repeat;
             }
         }
 
         .notice {
-            width: 61px;
-            height: 87px;
             bottom: 80px;
             right: 270px;
+            > a {
+                width: 61px;
+                height: 87px;
+            }
             &:hover {
                 background: url('../../../public/images/cities/8.png') no-repeat;
             }

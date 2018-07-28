@@ -10,12 +10,7 @@
                 </ul>
             </div>
             <div class="item">
-                <ul @click="active('abc' + n)" :class="{active: activeItem === 'abc' + n}" v-for="n in 100">
-                    <li><img src="../../public/images/backpack/1.gif" alt=""></li>
-                    <li>{{backpacks.name}}</li>
-                    <li>{{backpacks.type}}</li>
-                    <li>{{backpacks.number}}</li>
-                </ul>
+                <prop-item @active="active" :props="backpacks"></prop-item>
             </div>
         </div>
         <div class="btn-group">
@@ -30,6 +25,7 @@
 
 <script>
     import button from './button'
+    import propItem from './base/propItem'
     export default {
         name: "backpack",
         props: ['backpacks'],
@@ -39,15 +35,16 @@
             }
         },
         methods: {
-            active: function (e) {
-                this.activeItem = e
-            },
             make: function () {
                 this.$emit('console', this.activeItem)
+            },
+            active: function (item) {
+                this.activeItem = item
             }
         },
         components: {
-            'kd-button': button
+            'kd-button': button,
+            'prop-item': propItem,
         }
     }
 </script>
@@ -89,19 +86,6 @@
         width: 316px;
         height: 284px;
         margin-top: 9px;
-        > ul {
-            align-items: center;
-            border-bottom: 1px dashed #c49b50;
-            color: #855817;
-            &:hover {
-                background-color: #f0e3b6;
-                border-radius: 10px;
-            }
-        }
-        .active {
-            background-color: #f0e3b6;
-            border-radius: 10px;
-        }
     }
     
     .btn-group {
@@ -110,12 +94,8 @@
         margin: 16px auto 0;
         width: 300px;
         .btn {
-            background-color: #eee0ab;
+            padding: 1px 6px;
             width: 52px;
-            text-align: center;
-            border: 1px solid #e2b741;
-            border-radius: 20px;
-            cursor: pointer;
         }
     }
 </style>

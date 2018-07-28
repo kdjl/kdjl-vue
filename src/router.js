@@ -5,6 +5,11 @@ import TwoCity from './views/city/TwoCity'
 import PetInfo from './views/PetInfo'
 import UserInfo from './views/UserInfo'
 import Explore from './views/Explore'
+import Exchange from './views/city/child/Exchange'
+import Pasture from './views/city/child/Pasture'
+import MysteryShop from './views/city/child/MysteryShop'
+import Warehouse from './views/city/child/Warehouse'
+import PropShop from './views/city/child/PropShop'
 
 Vue.use(Router)
 
@@ -15,5 +20,10 @@ export default new Router({
         {path: '/petInfo', component: PetInfo, meta: {title: '宠物资料'}},
         {path: '/userInfo', component: UserInfo, meta: {title: '个人信息'}},
         {path: '/explore', component: Explore, meta: {title: '野外探险'}},
+        {path: '/exchange', component: Exchange, meta: {title: '交易所'}},
+        {path: '/pasture', component: Pasture, meta: {title: '牧场'}},
+        {path: '/mysteryShop', component: MysteryShop, meta: {title: '神秘商店'}},
+        {path: '/warehouse', component: Warehouse, meta: {title: '仓库'}},
+        {path: '/propShop', component: PropShop, meta: {title: '道具商店'}},
     ]
 })
