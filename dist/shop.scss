@@ -1,0 +1,63 @@
+.all {
+  display: flex;
+}
+
+.head {
+  width: 650px;
+  display: flex;
+  .gold-text {
+    margin: 0 10px;
+  }
+  .gold-text, .crystal-text {
+    display: flex;
+    align-items: center;
+  }
+
+  .title {
+    display: flex;
+    > .item {
+      width: 89px;
+      height: 29px;
+      cursor: pointer;
+    }
+  }
+}
+
+.context {
+  display: flex;
+}
+
+.content-l, .content-r {
+  width: 320px;
+  > .title {
+    display: block;
+    margin: 5px 0;
+  }
+  > .block {
+    width: 290px;
+    height: 220px;
+    background-color: #fff;
+    overflow: auto;
+    border: 1px solid #e6c578;
+    border-radius: 5px;
+  }
+  > .btn-group {
+    width: 290px;
+    text-align: right;
+    margin-top: 7px;
+    color: #B06A01;
+    > div > * {
+      margin-left: 8px;
+    }
+    input {
+      border-radius: 10px;
+      width: 60px;
+      padding: 1px 10px;
+      height: 15px;
+    }
+  }
+}
+
+.content-l {
+  margin-left: 15px;
+}
