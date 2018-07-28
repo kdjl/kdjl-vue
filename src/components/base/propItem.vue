@@ -1,11 +1,11 @@
 <template>
     <div>
-        <ul @click="active('prop' + index)" v-for="(prop,index) in props" :class="{active: activeItem === 'prop' + index}">
+        <ul :style="{'width': width, 'border': border}" @click="active('prop' + index)" v-for="(prop,index) in props" :class="{active: activeItem === 'prop' + index}">
             <li><img :src="getImg(prop.icon)" alt=""></li>
             <li>{{prop.name}}</li>
             <li v-if="prop.price">{{prop.price}}</li>
             <li v-if="prop.salePrive">{{prop.salePrive}}</li>
-            <li>{{prop.type}}</li>
+            <li v-if="prop.type">{{prop.type}}</li>
             <li>{{prop.number}}</li>
         </ul>
     </div>
@@ -14,7 +14,7 @@
 <script>
     export default {
         name: "propItem",
-        props: ['props'],
+        props: ['props', 'width', 'border'],
         computed: {
             inputListeners: function () {
                 return Object.assign({},
@@ -41,7 +41,7 @@
 
 <style scoped lang="scss">
     ul {
-        width: 299px;
+        /*width: 299px;*/
         align-items: center;
         border-bottom: 1px dashed #c49b50;
         color: #855817;
@@ -49,6 +49,7 @@
         justify-content: space-around;
         &:hover {
             background-color: #f0e3b6;
+            font-weight: bold;
             border-radius: 10px;
         }
         img {
