@@ -1,37 +1,37 @@
 <template>
     <div class="map">
         <div id="btn1" class="map-btn">
-            <img src="../../public/images/explore/1.png" alt="">
+            <img @click="toMapInfo(1)" src="../../public/images/explore/1.png" alt="新手基地">
         </div>
         <div id="btn2" class="map-btn">
-            <img src="../../public/images/explore/2.png" alt="">
+            <img @click="toMapInfo(2)" src="../../public/images/explore/2.png" alt="">
         </div>
         <div id="btn3" class="map-btn">
-            <img src="../../public/images/explore/3.png" alt="">
+            <img @click="toMapInfo(3)" src="../../public/images/explore/3.png" alt="">
         </div>
         <div id="btn4" class="map-btn">
-            <img src="../../public/images/explore/4.png" alt="">
+            <img @click="toMapInfo(4)" src="../../public/images/explore/4.png" alt="">
         </div>
         <div id="btn5" class="map-btn">
-            <img src="../../public/images/explore/5.png" alt="">
+            <img @click="toMapInfo(5)" src="../../public/images/explore/5.png" alt="">
         </div>
         <div id="btn6" class="map-btn">
-            <img src="../../public/images/explore/6.png" alt="">
+            <img @click="toMapInfo(6)" src="../../public/images/explore/6.png" alt="">
         </div>
         <div id="btn7" class="map-btn">
-            <img src="../../public/images/explore/7.png" alt="">
+            <img @click="toMapInfo(7)" src="../../public/images/explore/7.png" alt="">
         </div>
         <div id="btn8" class="map-btn">
-            <img src="../../public/images/explore/8.png" alt="">
+            <img @click="toMapInfo(8)" src="../../public/images/explore/8.png" alt="">
         </div>
         <div id="btn9" class="map-btn">
-            <img src="../../public/images/explore/9.png" alt="">
+            <img @click="toMapInfo(9)" src="../../public/images/explore/9.png" alt="">
         </div>
         <div id="btn10" class="map-btn">
-            <img src="../../public/images/explore/10.png" alt="">
+            <img @click="toMapInfo(10)" src="../../public/images/explore/10.png" alt="">
         </div>
         <div id="btn11" class="map-btn">
-            <img src="../../public/images/explore/11.png" alt="">
+            <img @click="toMapInfo(11)" src="../../public/images/explore/11.png" alt="">
         </div>
         <div id="fb-30" class="map-btn"></div>
         <div id="fb-50" class="map-btn"></div>
@@ -46,7 +46,12 @@
 
 <script>
     export default {
-        name: "Explore"
+        name: "Explore",
+        methods: {
+            toMapInfo: function (mapId) {
+                this.$router.push({ path: `/mapInfo/${mapId}` })
+            }
+        }
     }
 </script>
 

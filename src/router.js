@@ -10,6 +10,8 @@ import Pasture from './views/city/child/Pasture'
 import MysteryShop from './views/city/child/MysteryShop'
 import Warehouse from './views/city/child/Warehouse'
 import PropShop from './views/city/child/PropShop'
+import MapInfo from './views/map/MapInfo'
+import Battle from './views/map/Battle'
 
 Vue.use(Router)
 
@@ -25,5 +27,7 @@ export default new Router({
         {path: '/mysteryShop', component: MysteryShop, meta: {title: '神秘商店'}},
         {path: '/warehouse', component: Warehouse, meta: {title: '仓库'}},
         {path: '/propShop', component: PropShop, meta: {title: '道具商店'}},
+        {path: '/mapInfo/:mapId', component: MapInfo, meta: {title: '地图详情'}},
+        {path: '/battle', component: Battle, meta: {title: '战斗画面'}},
     ]
 })
