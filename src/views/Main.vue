@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="bg"></div>
-        <backpack @console="consoleToggle" @backpack-exit="backpackToggle" :backpacks="backpacks"
+        <backpack @console="consoleToggle" @backpack-exit="backpackToggle" :title="backpackTitle" :backpacks="backpacks"
                   v-show="backpackShow"></backpack>
         <task @task-exit="taskToggle" v-show="taskShow"></task>
     </div>
@@ -80,6 +80,7 @@
                 taskShow: false,
                 consoleShow: false,
                 consoleContext: '',
+                backpackTitle: ['图标', '物品名称', '类型', '数量'],
                 backpacks: [
                     {
                         icon: '1.gif',

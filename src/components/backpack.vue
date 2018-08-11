@@ -2,15 +2,14 @@
     <div class="backpack">
         <div class="content">
             <div class="title">
-                <ul>
-                    <li>图标</li>
-                    <li>物品名称</li>
-                    <li>类型</li>
-                    <li>数量</li>
-                </ul>
+                <table width="290" style="text-align: center">
+                    <tr>
+                        <td v-for="v in title">{{v}}</td>
+                    </tr>
+                </table>
             </div>
             <div class="item">
-                <prop-item @active="active" :props="backpacks"></prop-item>
+                <prop-item :width="290" @active="active" :props="backpacks"></prop-item>
             </div>
         </div>
         <div class="btn-group">
@@ -28,7 +27,7 @@
     import propItem from './base/propItem'
     export default {
         name: "backpack",
-        props: ['backpacks'],
+        props: ['backpacks', 'title'],
         data() {
             return {
                 activeItem: '',
@@ -67,7 +66,7 @@
     .content {
         margin: 47px auto 0;
         width: 300px;
-        .title ul {
+        .title table {
             color: #794f11;
             font-weight: bold;
         }
@@ -76,16 +75,11 @@
         }
     }
 
-    ul {
-        display: flex;
-        justify-content: space-around;
-    }
-
     .item {
         overflow: auto;
-        width: 316px;
+        width: 312px;
         height: 284px;
-        margin-top: 9px;
+        margin-top: 5px;
     }
     
     .btn-group {

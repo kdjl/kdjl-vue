@@ -14,6 +14,8 @@ import MapInfo from './views/map/MapInfo'
 import Battle from './views/map/Battle'
 import Main from './views/Main'
 import Choose from './views/Choose'
+import Register from './views/login/register'
+import Login from './views/login/login'
 
 Vue.use(Router)
 
@@ -21,7 +23,18 @@ export default new Router({
     routes: [
         {
             path: '/',
-            component: Choose
+            component: Login,
+            meta: {title: '登录页'}
+        },
+        {
+            path: '/register',
+            component: Register,
+            meta: {title: '注册页'}
+        },
+        {
+            path: '/choose',
+            component: Choose,
+            meta: {title: '选择人物'}
         },
         {
             path: '/main',
