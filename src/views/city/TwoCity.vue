@@ -2,7 +2,7 @@
     <div class="map">
         <div class="title-logo"></div>
         <div class="next">
-            <router-link to="/"></router-link>
+            <router-link to="/main"></router-link>
         </div>
         <div @click="pet" class="pet"></div>
         <div @click="pet" class="family"></div>

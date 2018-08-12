@@ -36,7 +36,7 @@
                     <form id="register">
                         <div class="form-inline top-10">
                             <label>昵称:</label>
-                            <input id="name" type="text" v-model="name">
+                            <input maxlength="10" id="name" type="text" v-model="name">
                         </div>
                         <div class="form-inline">
                             <img @click="ok" id="submit" src="../../public/images/choose/okbtn.jpg">
@@ -52,15 +52,15 @@
                 </div>
                 <div class="pet-content clearfix">
                     <img src="../../public/images/choose/zc16.jpg">
-                    <img @click="petClick" class="pet-click" src="../../public/images/choose/zc17.jpg">
+                    <img @click="petClick('木')" class="pet-click" src="../../public/images/choose/zc17.jpg">
                     <img src="../../public/images/choose/zc18.jpg">
-                    <img @click="petClick" class="pet-click" src="../../public/images/choose/zc19.jpg">
+                    <img @click="petClick('火')" class="pet-click" src="../../public/images/choose/zc19.jpg">
                     <img src="../../public/images/choose/zc20.jpg">
-                    <img @click="petClick" class="pet-click" src="../../public/images/choose/zc21.jpg">
+                    <img @click="petClick('金')" class="pet-click" src="../../public/images/choose/zc21.jpg">
                     <img src="../../public/images/choose/zc22.jpg">
-                    <img @click="petClick" class="pet-click" src="../../public/images/choose/zc23.jpg">
+                    <img @click="petClick('土')" class="pet-click" src="../../public/images/choose/zc23.jpg">
                     <img src="../../public/images/choose/zc24.jpg">
-                    <img @click="petClick" class="pet-click" src="../../public/images/choose/zc25.jpg">
+                    <img @click="petClick('水')" class="pet-click" src="../../public/images/choose/zc25.jpg">
                     <img src="../../public/images/choose/zc26.jpg">
                 </div>
                 <div class="pet-bottom">
@@ -80,6 +80,8 @@
         data() {
             return {
                 name: '',
+                imgLogo: '',
+                five: '',
                 activeItem: '',
                 choosePet: false,
             }
@@ -87,15 +89,46 @@
         methods: {
             active: function (index) {
                 this.activeItem = index
+                this.getImgLogo(index)
+            },
+            getImgLogo: function (index) {
+                let imgLogos = {
+                    1: '21.gif',
+                    2: '23.gif',
+                    3: '25.gif',
+                    4: '22.gif',
+                    5: '24.gif',
+                    6: '26.gif'
+                }
+                this.imgLogo = imgLogos[index]
             },
             ok: function () {
-                this.choosePet = true
+                let that = this
+                this.axios.get('/userInfo/checkName?name=' + that.name)
+                    .then(res => {
+                        if (res.data.status === 200) {
+                            this.choosePet = true
+                        } else {
+                            alert(res.data.msg)
+                        }
+                    })
             },
             exit: function () {
                 this.choosePet = false
             },
-            petClick: function () {
-                this.$router.push({path: '/main'})
+            petClick: function (five) {
+                let that = this
+                this.five = five
+                this.axios.post('/userInfo/choose', {
+                    name: this.name,
+                    imgLogo: this.imgLogo,
+                    five: this.five
+                }).then(res => {
+                    alert(res.data.msg)
+                    if (res.data.status === 200) {
+                        this.$router.push({path: '/main'})
+                    }
+                })
             }
         }
     }

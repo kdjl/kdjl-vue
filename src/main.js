@@ -6,11 +6,15 @@ import axios from 'axios'
 Vue.config.productionTip = false
 
 axios.defaults.baseURL = "http://127.0.0.1"
+axios.defaults.withCredentials = true
 axios.interceptors.response.use(res => {
     if (res.data.status === 200 || res.data.status === 500) {
         return res
     } else {
         alert(res.data.msg)
+        if (res.data.status === 300) {
+            router.push("/")
+        }
         return
     }
 }, error => {

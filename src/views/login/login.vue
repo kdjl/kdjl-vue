@@ -3,6 +3,12 @@
         <form id="form">
             <div class="title">口袋精灵登录界面</div>
             <div class="input-group">
+                <label for="serve">服务器：</label>
+                <select v-model="serve" id="serve">
+                    <option value="1">1区</option>
+                </select>
+            </div>
+            <div class="input-group">
                 <label for="username">用户名：</label>
                 <input v-model.trim="username" id="username" type="text" placeholder="请输入用户名" autocomplete="off">
             </div>
@@ -25,6 +31,7 @@
             return {
                 username: '',
                 password: '',
+                serve: 1,
             }
         },
         computed: {
@@ -38,16 +45,24 @@
             },
             login: function () {
                 let that = this
-                this.axios.post("/user/login", {
+                this.axios.post('/user/login', {
                     username: that.username,
-                    password: that.password
+                    password: that.password,
+                    server: that.serve
                 }).then(res => {
                     if (res !== undefined) {
-                        alert(res.data.msg)
-                        if (res.data.status !== 500) {
-                            that.$router.push({
-                                path: "/choose"
-                            })
+                        if (res.data.status === 200) {
+                            if (res.data.msg === '未创建角色') {
+                                that.$router.push({
+                                    path: "/choose"
+                                })
+                            } else {
+                                that.$router.push({
+                                    path: "/main"
+                                })
+                            }
+                        } else {
+                            alert(res.data.msg)
                         }
                     }
                 })
@@ -86,6 +101,12 @@
             &:hover,&:focus {
                 border-color: #07b5fb;
             }
+        }
+        select {
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            height: 20px;
+            padding: 10px 10px 10px 20px;
         }
         label {
             margin: 10px 5px;
