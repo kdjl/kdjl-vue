@@ -1,16 +1,16 @@
 <template>
     <div class="all">
         <div class="user-left">
-            <div class="top">
+            <div v-if="userInfo != null" class="top">
                 <div class="user-info">
-                    <div class="username">永恒之恋</div>
+                    <div class="username">{{userInfo.name}}</div>
                     <div>
                         宝贝:
-                        <span class="petname">火波姆</span>
+                        <span v-if="mainPet != null" class="petname">{{mainPet.pet.name}}</span>
                     </div>
                     <div>
                         宝贝数量:
-                        <span class="num">130</span>
+                        <span class="num">{{userInfo.petNum}}</span>
                     </div>
                     <div>
                         vip:
@@ -18,11 +18,11 @@
                     </div>
                     <div>
                         性别:
-                        <span class="sex">帅哥</span>
+                        <span class="sex">{{userInfo.sex === false ? '帅哥' : '美女'}}</span>
                     </div>
                     <div>
                         金币:
-                        <span class="price">9999999999</span>
+                        <span class="price">{{userInfo.gold}}</span>
                     </div>
                     <div>
                         胜率:
@@ -30,20 +30,22 @@
                     </div>
                     <div>
                         元宝:
-                        <span class="ingot">10000</span>
+                        <span class="ingot">{{userInfo.ingot}}</span>
                     </div>
                     <div>
                         水晶:
-                        <span>10000</span>
+                        <span>{{userInfo.crystal}}</span>
                     </div>
                 </div>
-                <div class="user-img"></div>
+                <div class="user-img">
+                    <img :src="getUserImg()">
+                </div>
             </div>
             <div class="bottom">
                 <div class="pet-img-list">
-                    <img src="../../public/images/PetPhoto/k176.gif" alt="">
-                    <img src="../../public/images/pets/nopet.jpg" alt="">
-                    <img src="../../public/images/pets/nopet.jpg" alt="">
+                    <div v-if="userPets != null" :style="{width: userPets.length * 85 + 'px'}">
+                        <img v-for="v in userPets" :src="getPetImg(v.pet.img, 'k')" alt="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,80 +85,80 @@
                     </div>
                 </div>
                 <img id="line" src="../../public/images/pets/line.jpg" alt="">
-                <div class="pet-info">
+                <div v-if="mainPet != null" class="pet-info">
                     <div>等级：
-                        <span class="rank">100</span>
+                        <span class="rank">{{mainPet.grade}}</span>
                     </div>
                     <div>五行：
-                        <span class="five">神</span>
+                        <span class="five">{{mainPet.pet.fiveEle}}</span>
                     </div>
                     <div>生命：
-                        <span class="hp">26760</span>
+                        <span class="hp">{{mainPet.hp}}</span>
                     </div>
                     <div>魔法：
-                        <span class="mp">5320</span>
+                        <span class="mp">{{mainPet.mp}}</span>
                     </div>
                     <div>攻击：
-                        <span class="attack">7040</span>
+                        <span class="attack">{{mainPet.attack}}</span>
                     </div>
                     <div>防御：
-                        <span class="defense">4280</span>
+                        <span class="defense">{{mainPet.defense}}</span>
                     </div>
                     <div>命中：
-                        <span class="hit">8040</span>
+                        <span class="hit">{{mainPet.hit}}</span>
                     </div>
                     <div>闪避：
-                        <span class="dodge">4280</span>
+                        <span class="dodge">{{mainPet.dodge}}</span>
                     </div>
                     <div>速度：
-                        <span class="speed">11300</span>
+                        <span class="speed">{{mainPet.speed}}</span>
                     </div>
                     <div>成长：
-                        <span class="grown">10</span>
+                        <span class="grown">{{mainPet.growth}}</span>
                     </div>
                 </div>
                 <div class="pet-img">
-                    <img src="../../public/images/PetPhoto/z176.gif" alt="">
+                    <img v-if="mainPet != null" :src="getPetImg(mainPet.pet.img, 'z')" alt="">
                 </div>
             </div>
             <div v-show="attr" class="attr">
                 <div class="attr-left">
                     <div class="img"></div>
-                    <img src="../../public/images/pets/z166.gif" alt="" class="pet">
-                    <div class="prop-list clearfix">
+                    <img v-if="mainPet != null" :src="getPetImg(mainPet.pet.img, 'z')" alt="" class="pet">
+                    <div v-if="mainPet != null" class="prop-list clearfix">
                         <div>等级：
-                            <span class="rank">100</span>
+                            <span class="rank">{{mainPet.grade}}</span>
                         </div>
                         <div>五行：
-                            <span class="five">神</span>
+                            <span class="five">{{mainPet.pet.fiveEle}}</span>
                         </div>
                         <div>生命：
-                            <span class="hp">26760</span>
+                            <span class="hp">{{mainPet.hp}}</span>
                         </div>
                         <div>魔法：
-                            <span class="mp">5320</span>
+                            <span class="mp">{{mainPet.mp}}</span>
                         </div>
                         <div>攻击：
-                            <span class="attack">7040</span>
+                            <span class="attack">{{mainPet.attack}}</span>
                         </div>
                         <div>防御：
-                            <span class="defense">4280</span>
+                            <span class="defense">{{mainPet.defense}}</span>
                         </div>
                         <div>命中：
-                            <span class="hit">8040</span>
+                            <span class="hit">{{mainPet.hit}}</span>
                         </div>
                         <div>闪避：
-                            <span class="dodge">4280</span>
+                            <span class="dodge">{{mainPet.dodge}}</span>
                         </div>
                         <div>速度：
-                            <span class="speed">11300</span>
+                            <span class="speed">{{mainPet.speed}}</span>
                         </div>
                         <div>成长：
-                            <span class="grown">10</span>
+                            <span class="grown">{{mainPet.growth}}</span>
                         </div>
                         <div>
                             当前经验：
-                            <span class="curr-exp">10000</span>
+                            <span class="curr-exp">{{mainPet.exp}}</span>
                         </div>
                         <div>
                             升级经验：
@@ -210,7 +212,7 @@
             </div>
             <div v-show="skill" class="skill">
                 <div class="skill-l">
-                    <img src="../../public/images/PetPhoto/z176.gif" alt="">
+                    <img v-if="mainPet != null" :src="getPetImg(mainPet.pet.img, 'z')" alt="">
                 </div>
                 <img src="../../public/images/pets/line.jpg" alt="">
                 <div class="skill-list">
@@ -235,10 +237,17 @@
         name: "PetInfo",
         data() {
             return {
+                userInfo: null,
+                userPets: null,
+                mainPet: null,
                 pet: true,
                 attr: false,
                 skill: false,
             }
+        },
+        created: function () {
+            this.getUserInfo()
+            this.getUserPets()
         },
         methods: {
             petShow: function () {
@@ -255,6 +264,44 @@
                 this.attr = false
                 this.skill = true
                 this.pet = false
+            },
+            getUserInfo: function () {
+                let that = this
+                this.axios.get("/userInfo/userInfo")
+                    .then(res => {
+                        if (res.data.status === 200) {
+                            that.userInfo = res.data.data
+                        } else {
+                            alert(res.data.msg)
+                        }
+                    })
+            },
+            getUserPets: function () {
+                let that = this
+                this.axios.get("/userPet/userPets")
+                    .then(res => {
+                        if (res.data.status === 200) {
+                            that.userPets = res.data.data
+                            that.getMainPet()
+                        } else {
+                            alert(res.data.msg)
+                        }
+                    })
+            },
+            getUserImg: function () {
+                return require('../../public/images/users/' + this.userInfo.imgLogo)
+            },
+            getMainPet: function () {
+                let that = this
+                this.userPets.forEach(v => {
+                    if (v.main) {
+                        that.mainPet = v
+                        return
+                    }
+                })
+            },
+            getPetImg: function (v, prefix) {
+                return require('../../public/images/PetPhoto/' + prefix + v + ".gif")
             }
         }
     }
@@ -272,22 +319,33 @@
         .top {
             display: flex;
             .user-info {
+                width: 125px;
                 margin-left: 20px;
                 margin-top: 10px;
                 line-height: 1.7;
             }
             .user-img {
-                background: url("../../public/images/pets/person_5.gif");
                 width: 120px;
                 height: 177px;
                 margin-top: 10px;
-                margin-left: 20px;
             }
         }
+        .bottom {
+            overflow: hidden;
+            height: 120px;
+        }
         .pet-img-list {
-            margin-top: 35px;
+            position: relative;
+            width: 250px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            bottom: -24px;
+            margin-top: 10px;
             margin-left: 16px;
-            > * {
+            div {
+                height: 85px;
+            }
+            img {
                 margin: 0 8px;
             }
         }

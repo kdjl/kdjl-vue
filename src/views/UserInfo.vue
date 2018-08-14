@@ -2,10 +2,10 @@
     <div class="all">
         <div class="left fl">
             <div class="user-name">
-                玩家名称：<span class="name">永恒之恋</span>
+                玩家名称：<span class="name" v-if="userInfo != null">{{userInfo.name}}</span>
             </div>
             <div class="user-img">
-                <img src="../../public/images/pets/person_5.gif" width="170px">
+                <img v-if="userInfo != null" :src="getUserImg()" width="170px">
             </div>
         </div>
         <div class="right fl">
@@ -13,22 +13,22 @@
                 <div @click="userShow" class="prop btn" :class="{'prop-click': user}"></div>
                 <div @click="friendShow" class="friend btn" :class="{'friend-click': friend}"></div>
             </div>
-            <div v-show="user" class="user-info">
+            <div v-if="userInfo != null" v-show="user" class="user-info">
                 <ul>
-                    <li>玩家昵称：永恒之恋</li>
-                    <li>宠物数量：3</li>
-                    <li>元宝：0</li>
-                    <li>水晶：0</li>
-                    <li>金币：2717931</li>
+                    <li>玩家昵称：{{userInfo.name}}</li>
+                    <li>宠物数量：{{userInfo.petNum}}</li>
+                    <li>元宝：{{userInfo.gold}}</li>
+                    <li>水晶：{{userInfo.crystal}}</li>
+                    <li>金币：{{userInfo.gold}}</li>
                     <li>VIP等级：0</li>
                     <li>VIP积分：0</li>
-                    <li>威望：0</li>
-                    <li>双倍经验剩余时间：0 秒</li>
-                    <li>双倍经验倍数：1</li>
-                    <li>自动战斗次数： 82</li>
-                    <li>是否允许别人挑战自己： 不允许</li>
-                    <li>组队自动战斗次数：0 次</li>
-                    <li>婚姻:未婚</li>
+                    <li>威望：{{userInfo.prestige}}</li>
+                    <li>双倍经验剩余时间：{{userInfo.multipleTime ? userInfo.multipleTime : 0}} 秒</li>
+                    <li>双倍经验倍数：{{userInfo.expMultiple}}</li>
+                    <li>自动战斗次数： {{userInfo.teamAuto}}</li>
+                    <li>是否允许别人挑战自己： {{userInfo.challenge ? "允许" : "不允许"}}</li>
+                    <li>组队自动战斗次数：{{userInfo.teamAuto}} 次</li>
+                    <li>婚姻:{{userInfo.marriage ? "已婚" : "未婚"}}</li>
                     <li>当月VIP反馈积分：0(月底清零)</li>
                     <li>上月VIP反馈积分：0</li>
                 </ul>
@@ -80,9 +80,13 @@
         name: "UserInfo",
         data() {
             return {
+                userInfo: null,
                 user: true,
                 friend: false,
             }
+        },
+        created: function () {
+            this.getUserInfo()
         },
         methods: {
             userShow: function () {
@@ -92,7 +96,21 @@
             friendShow: function () {
                 this.user = false
                 this.friend = true
-            }
+            },
+            getUserInfo: function () {
+                let that = this
+                this.axios.get("/userInfo/userInfo")
+                    .then(res => {
+                        if (res.data.status === 200) {
+                            that.userInfo = res.data.data
+                        } else {
+                            alert(res.data.msg)
+                        }
+                    })
+            },
+            getUserImg: function () {
+                return require('../../public/images/users/' + this.userInfo.imgLogo)
+            },
         },
         components: {
             'kd-button': button

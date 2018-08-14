@@ -15,10 +15,21 @@
         <div class="btn-group">
             <kd-button @click="make" text="使用"></kd-button>
             <kd-button text="丢弃"></kd-button>
-            <kd-button text="批量使用"></kd-button>
+            <kd-button @click="toggleBatch" text="批量使用"></kd-button>
             <kd-button text="放入仓库"></kd-button>
         </div>
         <div class="exit" @click="$emit('backpack-exit')"></div>
+        <div v-if="activeItem && showBatch" class="batchMake">
+            <div class="input-gropu">
+                <label for="name">道具名称：</label>
+                <input disabled v-model="activeItem.name" id="name" type="text">
+            </div>
+            <div class="input-gropu">
+                <label for="num">使用数量</label>
+                <input autocomplete="off" @blur="checkMaxNum" v-model="inputNum" min="1" :max="activeItem.number" id="num" type="number">
+            </div>
+            <kd-button @click="batchMake" text="使用"></kd-button>
+        </div>
     </div>
 </template>
 
@@ -30,15 +41,67 @@
         props: ['backpacks', 'title'],
         data() {
             return {
-                activeItem: '',
+                showBatch: false,
+                activeItem: null,
+                timeId: null,
+                clickTime: 0,
+                inputNum: 0
             }
+        },
+        watch: {
+          backpacks: function (newValue, oldValue) {
+              if (this.activeItem != null) {
+                  this.activeItem = newValue.filter(v => {
+                      console.log(v)
+                      return v.id === this.activeItem.id
+                  })[0]
+                  if (this.activeItem != null) {
+                      this.checkMaxNum()
+                  }
+              }
+          }
         },
         methods: {
             make: function () {
-                this.$emit('console', this.activeItem)
+                let that = this
+                this.clickTime++
+                if (this.timeId != null) {
+                    clearTimeout(this.timeId)
+                }
+                this.timeId = setTimeout(() => {
+                    let num = that.clickTime
+                    that.clickTime = 0
+                    that.useProp(num)
+                }, 500)
+            },
+            batchMake: function () {
+                this.useProp(this.inputNum)
+            },
+            toggleBatch: function () {
+                this.showBatch = !this.showBatch
             },
             active: function (item) {
                 this.activeItem = item
+                this.inputNum = item.number
+            },
+            checkMaxNum: function () {
+                if (this.inputNum > this.activeItem.number) {
+                    this.inputNum = this.activeItem.number
+                }
+            },
+            useProp: function (num) {
+                let that = this
+                this.axios.post('/prop/useGiftPack',{
+                    pid: that.activeItem.pid,
+                    bid: that.activeItem.bid,
+                    num: num
+                }).then(res => {
+                    if (res.data.status === 200) {
+                        that.$emit('console', res.data.data)
+                    } else {
+                        that.$emit('console', res.data.msg)
+                    }
+                })
             }
         },
         components: {
@@ -90,6 +153,28 @@
         .btn {
             padding: 1px 6px;
             width: 52px;
+        }
+    }
+
+    .batchMake {
+        position: absolute;
+        bottom: 44px;
+        left: 168px;
+        background-color: #eee0ab;
+        padding: 10px;
+        border: 1px solid #e2b741;
+        color: #B06A01;
+        width: 90px;
+        border-radius: 5px;
+        button {
+            margin-top: 5px;
+            padding: 1px 6px;
+            width: 78px;
+        }
+        input {
+            padding-left: 2px;
+            width: 90px;
+            border-radius: 2px;
         }
     }
 </style>

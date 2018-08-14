@@ -8,7 +8,7 @@
             <!--<li style="width: 50px" v-if="prop.type">{{prop.type}}</li>-->
             <!--<li style="width: 50px" v-if="prop.number">{{prop.number}}</li>-->
         <!--</ul>-->
-        <tr class="backpack-list" v-if="!fullIcon" :style="{'border': border}" @click="active('prop' + index)" v-for="(prop,index) in props" :class="{active: activeItem === 'prop' + index}">
+        <tr class="backpack-list" v-if="!fullIcon" :style="{'border': border}" @click="active(prop)" v-for="(prop,index) in props" :key="prop.id" :class="{active: activeItem.id === prop.id}">
             <td v-if="prop.icon"><img :src="getImg(prop.icon)" alt=""></td>
             <td>{{prop.name}}</td>
             <td v-if="prop.price">{{prop.price}}</td>
