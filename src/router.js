@@ -42,7 +42,7 @@ export default new Router({
             children: [
                 {path: '/', component: CenterCity, meta: {title: '中心城镇'}},
                 {path: '/twoCity', component: TwoCity, meta: {title: '副城镇'}},
-                {path: '/petInfo', component: PetInfo, meta: {title: '宠物资料'}},
+                {path: '/petInfo/:index', component: PetInfo, meta: {title: '宠物资料', console: ''}},
                 {path: '/userInfo', component: UserInfo, meta: {title: '个人信息'}},
                 {path: '/explore', component: Explore, meta: {title: '野外探险'}},
                 {path: '/exchange', component: Exchange, meta: {title: '交易所'}},

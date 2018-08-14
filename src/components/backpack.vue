@@ -97,9 +97,9 @@
                     num: num
                 }).then(res => {
                     if (res.data.status === 200) {
-                        that.$emit('console', res.data.data)
+                        that.$emit('console', res.data.data, 'backpack')
                     } else {
-                        that.$emit('console', res.data.msg)
+                        that.$emit('console', res.data.msg, 'backpack')
                     }
                 })
             }

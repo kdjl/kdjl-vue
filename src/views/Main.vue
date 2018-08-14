@@ -15,7 +15,7 @@
                             </router-link>
                         </div>
                         <div class="item">
-                            <router-link to="/petInfo">
+                            <router-link to="/petInfo/0">
                                 <img src="../../public/images/index/3.png" alt="宠物资料">
                             </router-link>
                         </div>
@@ -69,7 +69,7 @@
 
 <script>
     import backpack from '../components/backpack'
-    import console from '../components/console'
+    import myConsole from '../components/console'
     import task from '../components/task'
 
     export default {
@@ -85,7 +85,14 @@
                 backpacks: null
             }
         },
-        computed: {},
+        watch: {
+            '$route': function (newValue, oldValue) {
+                if (newValue.meta.console !== undefined && newValue.meta.console !== '') {
+                    this.consoleToggle(newValue.meta.console, 'switch')
+                    newValue.meta.console = ''
+                }
+            }
+        },
         methods: {
             backpackToggle: function () {
                 if (!this.backpackShow) {
@@ -94,8 +101,10 @@
                     this.backpackShow = false
                 }
             },
-            consoleToggle: function (str) {
-                this.getBackpacks()
+            consoleToggle: function (str, type) {
+                if (type === 'backpack') {
+                    this.getBackpacks()
+                }
                 this.consoleContext = str
                 if (this.consoleShow && this.timeId != null) {
                     clearTimeout(this.timeId)
@@ -140,7 +149,7 @@
         },
         components: {
             'backpack': backpack,
-            'console': console,
+            'console': myConsole,
             'task': task
         }
     }
@@ -162,7 +171,7 @@
 
     .top {
         display: flex;
-        >.left {
+        > .left {
             background: url(../../public/images/index/bg_left.jpg) no-repeat;
             width: 197px;
             height: 369px;
@@ -178,7 +187,7 @@
                 }
             }
         }
-        >.right {
+        > .right {
             position: relative;
             background: url(../../public/images/index/content.jpg) no-repeat;
             width: 803px;

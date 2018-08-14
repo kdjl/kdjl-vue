@@ -44,7 +44,7 @@
             <div class="bottom">
                 <div class="pet-img-list">
                     <div v-if="userPets != null" :style="{width: userPets.length * 85 + 'px'}">
-                        <img v-for="v in userPets" :src="getPetImg(v.pet.img, 'k')" alt="">
+                        <img @click="switchMainPet(v.id)" :style="v.main ? '' : 'opacity: 0.7'" v-for="v in userPets" :src="getPetImg(v.pet.img, 'k')" alt="">
                     </div>
                 </div>
             </div>
@@ -162,7 +162,7 @@
                         </div>
                         <div>
                             升级经验：
-                            <span class="exp">99999999</span>
+                            <span class="exp">{{upgradeExp}}</span>
                         </div>
                     </div>
                 </div>
@@ -233,6 +233,7 @@
 </template>
 
 <script>
+
     export default {
         name: "PetInfo",
         data() {
@@ -243,6 +244,8 @@
                 pet: true,
                 attr: false,
                 skill: false,
+                upgradeExp: 0,
+                index: 0,
             }
         },
         created: function () {
@@ -254,11 +257,14 @@
                 this.attr = false
                 this.skill = false
                 this.pet = true
+                this.getUserPets()
             },
             attrShow: function () {
                 this.attr = true
                 this.skill = false
                 this.pet = false
+                this.getUpgradeExp()
+                this.getUserPets()
             },
             skillShow: function () {
                 this.attr = false
@@ -302,6 +308,25 @@
             },
             getPetImg: function (v, prefix) {
                 return require('../../public/images/PetPhoto/' + prefix + v + ".gif")
+            },
+            getUpgradeExp: function () {
+                let that = this
+                this.axios.get("/userPet/getUpgradeExp")
+                    .then(res => {
+                        if (res.data.status === 200) {
+                            that.upgradeExp = res.data.data
+                        }
+                    })
+            },
+            switchMainPet: function (id) {
+                this.axios.get("/userPet/switchMainPet?id=" + id)
+                    .then(res => {
+                        if (res.data.status === 200) {
+                            this.$route.meta.console = res.data.msg
+                            this.$router.push({ path: `/petInfo/${++this.index}` })
+                            this.getUserPets()
+                        }
+                    })
             }
         }
     }
@@ -346,6 +371,7 @@
                 height: 85px;
             }
             img {
+                cursor: pointer;
                 margin: 0 8px;
             }
         }
