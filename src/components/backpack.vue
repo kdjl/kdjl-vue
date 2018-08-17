@@ -2,14 +2,14 @@
     <div class="backpack">
         <div class="content">
             <div class="title">
-                <table width="290" style="text-align: center">
+                <table width="300" style="text-align: center">
                     <tr>
                         <td v-for="v in title">{{v}}</td>
                     </tr>
                 </table>
             </div>
             <div class="item">
-                <prop-item :width="290" @active="active" :props="backpacks"></prop-item>
+                <prop-item :width="300" @active="active" :props="backpacks"></prop-item>
             </div>
         </div>
         <div class="btn-group">
@@ -36,6 +36,7 @@
 <script>
     import button from './button'
     import propItem from './base/propItem'
+
     export default {
         name: "backpack",
         props: ['backpacks', 'title'],

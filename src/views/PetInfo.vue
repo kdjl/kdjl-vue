@@ -64,14 +64,21 @@
             <div v-show="pet" class="pet">
                 <div class="pet-content">
                     <div class="item">
-                        <div>身体</div>
+                        <div>
+                            身体
+                        </div>
                         <div class="crown"></div>
                         <div>头部</div>
                         <div class="crown"></div>
                         <div>项链</div>
                     </div>
                     <div class="item">
-                        <div>武器</div>
+                        <div>
+                            <template v-if="getEquipImg(1) === null">
+                                武器
+                            </template>
+                            <img @click="unloadEquip(1)" v-else :src="getEquipImg(1)" alt="">
+                        </div>
                         <div>手镯</div>
                     </div>
                     <div class="item">
@@ -246,11 +253,13 @@
                 skill: false,
                 upgradeExp: 0,
                 index: 0,
+                equip: null
             }
         },
         created: function () {
             this.getUserInfo()
             this.getUserPets()
+            this.showEquip()
         },
         methods: {
             petShow: function () {
@@ -311,7 +320,7 @@
             },
             getUpgradeExp: function () {
                 let that = this
-                this.axios.get("/userPet/getUpgradeExp")
+                this.axios.get('/userPet/getUpgradeExp')
                     .then(res => {
                         if (res.data.status === 200) {
                             that.upgradeExp = res.data.data
@@ -319,12 +328,52 @@
                     })
             },
             switchMainPet: function (id) {
-                this.axios.get("/userPet/switchMainPet?id=" + id)
+                this.axios.get('/userPet/switchMainPet?id=' + id)
                     .then(res => {
                         if (res.data.status === 200) {
                             this.$route.meta.console = res.data.msg
-                            this.$router.push({ path: `/petInfo/${++this.index}` })
+                            this.$router.push({path: `/petInfo/${++this.index}`})
                             this.getUserPets()
+                            this.showEquip()
+                        }
+                    })
+            },
+            showEquip: function () {
+                this.axios.get('/userEquip/showEquip')
+                    .then(res => {
+                        if (res.data.status === 200) {
+                            this.equip = res.data.data
+                        }
+                    })
+            },
+            getEquipImg: function (i) {
+                if (this.equip === null) {
+                    return null
+                }
+                let img = this.equip.filter(v => {
+                    return v.type === i
+                })
+                if (img == null || img.length === 0) {
+                    return null
+                }
+                return require('../../public/images/equip/' + img[0].img)
+            },
+            unloadEquip: function (i) {
+                if (this.equip === null) {
+                    alert("未获取到装备信息")
+                }
+                let img = this.equip.filter(v => {
+                    return v.type === i
+                })
+                if (img == null || img.length === 0) {
+                    alert("未获取到装备信息")
+                }
+                this.axios.get('/userEquip/unloadEquip?id=' + img[0].pid)
+                    .then(res => {
+                        if (res.data.status === 200) {
+                            this.$route.meta.console = res.data.msg
+                            this.$router.push({path: `/petInfo/${++this.index}`})
+                            this.showEquip()
                         }
                     })
             }
@@ -423,6 +472,9 @@
                         text-align: center;
                         line-height: 46px;
                         cursor: pointer;
+                        > img {
+                            padding-top: 2px;
+                        }
                     }
                     .crown {
                         background: url("../../public/images/pets/zbsx.gif") no-repeat;

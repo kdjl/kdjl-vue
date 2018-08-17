@@ -138,6 +138,8 @@
                     prop.name = v.prop.name
                     prop.type = v.prop.type
                     prop.number = v.num
+                    prop.info = v.prop.info
+                    prop.deal = v.prop.deal
                     prop.id = v.id
                     prop.pid = v.pid
                     prop.bid = v.bid

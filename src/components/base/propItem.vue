@@ -1,20 +1,13 @@
 <template>
     <table :width="width" width="290" style="text-align: center">
-        <!--<ul class="backpack-list" v-if="!fullIcon" :style="{'width': width, 'border': border}" @click="active('prop' + index)" v-for="(prop,index) in props" :class="{active: activeItem === 'prop' + index}">-->
-            <!--<li style="width: 40px" v-if="prop.icon"><img :src="getImg(prop.icon)" alt=""></li>-->
-            <!--<li style="width: 80px">{{prop.name}}</li>-->
-            <!--<li style="width: 80px" v-if="prop.price">{{prop.price}}</li>-->
-            <!--<li style="width: 80px" v-if="prop.salePrive">{{prop.salePrive}}</li>-->
-            <!--<li style="width: 50px" v-if="prop.type">{{prop.type}}</li>-->
-            <!--<li style="width: 50px" v-if="prop.number">{{prop.number}}</li>-->
-        <!--</ul>-->
-        <tr class="backpack-list" v-if="!fullIcon" :style="{'border': border}" @click="active(prop)" v-for="(prop,index) in props" :key="prop.id" :class="{active: activeItem.id === prop.id}">
-            <td v-if="prop.icon"><img :src="getImg(prop.icon)" alt=""></td>
+        <tr @mouseover="mouseover(prop)" @mouseout="mouseout" class="backpack-list" v-if="!fullIcon" :style="{'border': border}" @click="active(prop)" v-for="(prop,index) in props" :key="prop.id" :class="{active: activeItem.id === prop.id}">
+            <td width="50" v-if="prop.icon"><img :src="getImg(prop.icon)" alt=""></td>
             <td>{{prop.name}}</td>
             <td v-if="prop.price">{{prop.price}}</td>
             <td v-if="prop.salePrive">{{prop.salePrive}}</td>
             <td v-if="prop.type">{{prop.type}}</td>
             <td v-if="prop.number">{{prop.number}}</td>
+            <show-prop-info :prop="prop" v-show="mouse.id === prop.id"></show-prop-info>
         </tr>
         <ul v-if="fullIcon" :style="{'width': width, 'border': border}" @click="active('prop' + index)" v-for="(prop,index) in props" :class="{active: activeItem === 'prop' + index}">
             <li><img v-if="fullIcon" :src="getFullIcon(fullIcon)" alt="">{{prop.name}}</li>
@@ -25,6 +18,8 @@
 </template>
 
 <script>
+    import showPropInfo from './showPropInfo'
+
     export default {
         name: "propItem",
         props: ['props', 'width', 'border', 'fullIcon'],
@@ -38,6 +33,7 @@
         data() {
             return {
                 activeItem: '',
+                mouse: '',
             }
         },
         methods: {
@@ -50,7 +46,16 @@
             },
             getFullIcon: function (fullIcon) {
                 return require('../../../public/images/' + fullIcon)
+            },
+            mouseover: function (prop) {
+                this.mouse = prop
+            },
+            mouseout: function () {
+                this.mouse = ''
             }
+        },
+        components: {
+            'showPropInfo': showPropInfo
         }
     }
 </script>
@@ -76,6 +81,12 @@
         }
         > li {
             text-align: center;
+        }
+        > div {
+            position: absolute;
+            left: -150px;
+            text-align: left;
+            z-index: 300;
         }
     }
 
