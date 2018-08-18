@@ -1,12 +1,12 @@
 <template>
     <table :width="width" width="290" style="text-align: center">
         <tr @mouseover="mouseover(prop)" @mouseout="mouseout" class="backpack-list" v-if="!fullIcon" :style="{'border': border}" @click="active(prop)" v-for="(prop,index) in props" :key="prop.id" :class="{active: activeItem.id === prop.id}">
-            <td width="50" v-if="prop.icon"><img :src="getImg(prop.icon)" alt=""></td>
-            <td>{{prop.name}}</td>
+            <td width="50" v-if="prop.prop.img"><img :src="getImg(prop.prop.img)" alt=""></td>
+            <td>{{prop.prop.name}}</td>
             <td v-if="prop.price">{{prop.price}}</td>
             <td v-if="prop.salePrive">{{prop.salePrive}}</td>
-            <td v-if="prop.type">{{prop.type}}</td>
-            <td v-if="prop.number">{{prop.number}}</td>
+            <td v-if="prop.prop.type">{{prop.prop.type}}</td>
+            <td v-if="prop.num">{{prop.num}}</td>
             <show-prop-info :prop="prop" v-show="mouse.id === prop.id"></show-prop-info>
         </tr>
         <ul v-if="fullIcon" :style="{'width': width, 'border': border}" @click="active('prop' + index)" v-for="(prop,index) in props" :class="{active: activeItem === 'prop' + index}">

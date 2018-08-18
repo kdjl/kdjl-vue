@@ -77,7 +77,8 @@
                             <template v-if="getEquipImg(1) === null">
                                 武器
                             </template>
-                            <img @click="unloadEquip(1)" v-else :src="getEquipImg(1)" alt="">
+                            <img @mouseout="mouseout" @mouseover="mouseover(checkType(1))" @click="unloadEquip(1)" v-else :src="getEquipImg(1)" alt="">
+                            <show-prop-info v-if="equipAttr != null" :prop="checkType(1)" v-show="mouse.id === checkType(1).prop.id"></show-prop-info>
                         </div>
                         <div>手镯</div>
                     </div>
@@ -240,6 +241,7 @@
 </template>
 
 <script>
+    import showPropInfo from '../components/base/showPropInfo'
 
     export default {
         name: "PetInfo",
@@ -253,7 +255,9 @@
                 skill: false,
                 upgradeExp: 0,
                 index: 0,
-                equip: null
+                equip: null,
+                equipAttr: null,
+                mouse: '',
             }
         },
         created: function () {
@@ -262,6 +266,18 @@
             this.showEquip()
         },
         methods: {
+            checkType: function (type) {
+                let attr = this.equipAttr.filter(v => {
+                    return v.type = type
+                })
+                return attr[0]
+            },
+            mouseover: function (prop) {
+                this.mouse = prop.prop
+            },
+            mouseout: function () {
+                this.mouse = ''
+            },
             petShow: function () {
                 this.attr = false
                 this.skill = false
@@ -311,7 +327,6 @@
                 this.userPets.forEach(v => {
                     if (v.main) {
                         that.mainPet = v
-                        return
                     }
                 })
             },
@@ -333,7 +348,7 @@
                         if (res.data.status === 200) {
                             this.$route.meta.console = res.data.msg
                             this.$router.push({path: `/petInfo/${++this.index}`})
-                            this.getUserPets()
+                            // 获取装备
                             this.showEquip()
                         }
                     })
@@ -343,6 +358,18 @@
                     .then(res => {
                         if (res.data.status === 200) {
                             this.equip = res.data.data
+                            // 刷新宠物属性
+                            this.getUserPets()
+                            // 获取装备属性
+                            this.getEquipAttrByUid()
+                        }
+                    })
+            },
+            getEquipAttrByUid: function () {
+                this.axios.get('/userEquip/getEquipAttrByUid')
+                    .then(res => {
+                        if (res.data.status === 200) {
+                            this.equipAttr = res.data.data
                         }
                     })
             },
@@ -374,9 +401,13 @@
                             this.$route.meta.console = res.data.msg
                             this.$router.push({path: `/petInfo/${++this.index}`})
                             this.showEquip()
+                            this.getUserPets()
                         }
                     })
             }
+        },
+        components: {
+            'showPropInfo': showPropInfo
         }
     }
 </script>
@@ -474,6 +505,14 @@
                         cursor: pointer;
                         > img {
                             padding-top: 2px;
+                        }
+                        > div {
+                            position: absolute;
+                            left: -150px;
+                            top: 83px;
+                            text-align: left;
+                            z-index: 300;
+                            height: auto;
                         }
                     }
                     .crown {

@@ -133,17 +133,7 @@
             backpackInfoToProps: function (backpackInfo) {
                 let props = []
                 backpackInfo.forEach(v => {
-                    let prop = {}
-                    prop.icon = v.prop.img
-                    prop.name = v.prop.name
-                    prop.type = v.prop.type
-                    prop.number = v.num
-                    prop.info = v.prop.info
-                    prop.deal = v.prop.deal
-                    prop.id = v.id
-                    prop.pid = v.pid
-                    prop.bid = v.bid
-                    props.push(prop)
+                    props.push(v)
                 })
                 this.backpacks = props
                 this.backpackShow = true
