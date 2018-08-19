@@ -5,7 +5,11 @@
         <div class="type">{{prop.prop.type}}</div>
         <template v-if="prop.equips != null && prop.equips.length !== 0">
             <div>{{getType(prop.equips[0].type)}}</div>
-            <div :class="{mainAttr: equip.main}" v-for="equip in prop.equips">+{{equip.attr + ' ' + getAttrType(equip.attrType)}}</div>
+            <div :class="{mainAttr: equip.main}" v-for="equip in prop.equips">+{{equip.attr}}{{equip.percentage ? '%' : ''}} {{getAttrType(equip.attrType)}}</div>
+            <template v-if="prop.equips[0].suit != null && prop.equips[0].suit !== undefined">
+                <div class="suit_name">{{prop.equips[0].suit.name}}({{sidMapper[prop.equips[0].suit.id].num}}/{{sidMapper[prop.equips[0].suit.id].max}})</div>
+                <div :class="suitAttr.equipNum <= sidMapper[prop.equips[0].suit.id].num ? 'green' : 'attr'" v-for="suitAttr in prop.equips[0].suitAttrs">({{suitAttr.equipNum}})套装：+{{suitAttr.attr}}{{suitAttr.percentage ? '%' : ''}} {{getAttrType(suitAttr.attrType)}}</div>
+            </template>
         </template>
         <div class="info">{{prop.prop.info}}</div>
     </div>
@@ -14,7 +18,7 @@
 <script>
     export default {
         name: "showPropInfo",
-        props: ["prop"],
+        props: ["prop", 'sidMapper'],
         methods: {
             getType: function (v) {
                 let typeMap = {
@@ -55,7 +59,7 @@
         border: 1px solid #fff;
         border-radius: 10px;
         > div {
-            line-height: 13px;
+            line-height: 15px;
             color: #fff;
             margin-bottom: 2px;
         }
@@ -65,6 +69,18 @@
 
         > .transaction {
             color: #ccc;
+        }
+
+        .suit_name {
+            color: #FFD700;
+        }
+
+        .green {
+            color: #11ff03;
+        }
+
+        .attr {
+            color: #aaa;
         }
 
         > .type {

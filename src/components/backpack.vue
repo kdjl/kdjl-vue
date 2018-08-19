@@ -22,11 +22,11 @@
         <div v-if="activeItem && showBatch" class="batchMake">
             <div class="input-gropu">
                 <label for="name">道具名称：</label>
-                <input disabled v-model="activeItem.name" id="name" type="text">
+                <input disabled v-model="activeItem.prop.name" id="name" type="text">
             </div>
             <div class="input-gropu">
                 <label for="num">使用数量</label>
-                <input autocomplete="off" @blur="checkMaxNum" v-model="inputNum" min="1" :max="activeItem.number" id="num" type="number">
+                <input autocomplete="off" @blur="checkMaxNum" v-model="inputNum" min="1" :max="activeItem.num" id="num" type="number">
             </div>
             <kd-button @click="batchMake" text="使用"></kd-button>
         </div>
@@ -83,7 +83,7 @@
             },
             active: function (item) {
                 this.activeItem = item
-                this.inputNum = item.number
+                this.inputNum = item.num
             },
             checkMaxNum: function () {
                 if (this.inputNum > this.activeItem.number) {

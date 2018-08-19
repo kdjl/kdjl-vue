@@ -65,7 +65,11 @@
                 <div class="pet-content">
                     <div class="item">
                         <div>
-                            身体
+                            <template v-if="getEquipImg(2) === null">
+                                身体
+                            </template>
+                            <img @mouseout="mouseout" @mouseover="mouseover(equips[2])" @click="unloadEquip(2)" v-else :src="getEquipImg(2)" alt="">
+                            <show-prop-info v-if="equips != null && equips[2] != null" :prop="equips[2]" :sid-mapper="sidMapper" v-show="mouse.id === equips[2].prop.id"></show-prop-info>
                         </div>
                         <div class="crown"></div>
                         <div>头部</div>
@@ -77,8 +81,8 @@
                             <template v-if="getEquipImg(1) === null">
                                 武器
                             </template>
-                            <img @mouseout="mouseout" @mouseover="mouseover(checkType(1))" @click="unloadEquip(1)" v-else :src="getEquipImg(1)" alt="">
-                            <show-prop-info v-if="equipAttr != null" :prop="checkType(1)" v-show="mouse.id === checkType(1).prop.id"></show-prop-info>
+                            <img @mouseout="mouseout" @mouseover="mouseover(equips[1])" @click="unloadEquip(1)" v-else :src="getEquipImg(1)" alt="">
+                            <show-prop-info v-if="equips != null && equips[1] != null" :prop="equips[1]" :sid-mapper="sidMapper" v-show="mouse.id === equips[1].prop.id"></show-prop-info>
                         </div>
                         <div>手镯</div>
                     </div>
@@ -258,6 +262,24 @@
                 equip: null,
                 equipAttr: null,
                 mouse: '',
+                equips: {},
+                sidMapper: null,
+            }
+        },
+        watch: {
+            equipAttr: function (newValue, oldValue) {
+                let sids = newValue.map(v => v.equips[0].suit.id);
+                let sidMapper = {}
+                sids.forEach(v => {
+                    sidMapper[v] = sidMapper[v] ? sidMapper[v] : {}
+                    newValue.forEach(n => {
+                        if (n.equips[0].suitAttrs[0].sid = v) {
+                            sidMapper[v].max = n.equips[0].suitAttrs[n.equips[0].suitAttrs.length - 1].equipNum
+                        }
+                    })
+                    sidMapper[v].num === undefined ? sidMapper[v].num = 1 : sidMapper[v].num += 1
+                })
+                this.sidMapper = sidMapper
             }
         },
         created: function () {
@@ -266,13 +288,15 @@
             this.showEquip()
         },
         methods: {
-            checkType: function (type) {
-                let attr = this.equipAttr.filter(v => {
-                    return v.type = type
+            checkType: function () {
+                let equips = {}
+                this.equipAttr.forEach(v => {
+                    equips[v.equips[0].type] = v
                 })
-                return attr[0]
+                this.equips = equips
             },
             mouseover: function (prop) {
+                console.log(prop)
                 this.mouse = prop.prop
             },
             mouseout: function () {
@@ -370,6 +394,7 @@
                     .then(res => {
                         if (res.data.status === 200) {
                             this.equipAttr = res.data.data
+                            this.checkType()
                         }
                     })
             },
@@ -503,13 +528,14 @@
                         text-align: center;
                         line-height: 46px;
                         cursor: pointer;
+                        position: relative;
                         > img {
                             padding-top: 2px;
                         }
                         > div {
                             position: absolute;
-                            left: -150px;
-                            top: 83px;
+                            left: -172px;
+                            top: 0;
                             text-align: left;
                             z-index: 300;
                             height: auto;
