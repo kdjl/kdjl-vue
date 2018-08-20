@@ -1,20 +1,24 @@
 <template>
-    <table :width="width" width="290" style="text-align: center">
-        <tr @mouseover="mouseover(prop)" @mouseout="mouseout" class="backpack-list" v-if="!fullIcon" :style="{'border': border}" @click="active(prop)" v-for="(prop,index) in props" :key="prop.id" :class="{active: activeItem.id === prop.id}">
-            <td width="50" v-if="prop.prop.img"><img :src="getImg(prop.prop.img)" alt=""></td>
-            <td>{{prop.prop.name}}</td>
-            <td v-if="prop.price">{{prop.price}}</td>
-            <td v-if="prop.salePrive">{{prop.salePrive}}</td>
-            <td v-if="prop.prop.type">{{prop.prop.type}}</td>
-            <td v-if="prop.num">{{prop.num}}</td>
-            <show-prop-info :sid-mapper="sidMapper" :prop="prop" v-show="mouse.id === prop.id"></show-prop-info>
-        </tr>
-        <ul v-if="fullIcon" :style="{'width': width, 'border': border}" @click="active('prop' + index)" v-for="(prop,index) in props" :class="{active: activeItem === 'prop' + index}">
-            <li><img v-if="fullIcon" :src="getFullIcon(fullIcon)" alt="">{{prop.name}}</li>
-            <li v-if="prop.rank">LV:{{prop.rank}}</li>
-            <li v-if="prop.fiveLine">{{prop.fiveLine}}</li>
-        </ul>
-    </table>
+    <div>
+        <table :width="width" width="290" style="text-align: center">
+            <tr @mouseover="mouseover(prop)" @mouseout="mouseout" class="backpack-list" v-if="!fullIcon" :style="{'border': border}" @click="active(prop)" v-for="(prop,index) in props" :key="prop.id" :class="{active: activeItem.id === prop.id}">
+                <td width="50" v-if="prop.prop.img"><img :src="getImg(prop.prop.img)" alt=""></td>
+                <td>{{prop.prop.name}}</td>
+                <td v-if="prop.price">{{prop.price}}</td>
+                <td v-if="prop.salePrive">{{prop.salePrive}}</td>
+                <td v-if="prop.prop.type">{{prop.prop.type}}</td>
+                <td v-if="prop.num">{{prop.num}}</td>
+                <show-prop-info :sid-mapper="sidMapper" :prop="prop" v-show="mouse.id === prop.id"></show-prop-info>
+            </tr>
+        </table>
+        <table width="290" style="text-align: center" v-if="fullIcon" :style="{'width': width, 'border': border}">
+            <tr @click="active(pet)" v-for="(pet,index) in props" :class="{active: activeItem.id === pet.id}" class="pasturePets">
+                <td width="100"><img v-if="fullIcon" :src="getFullIcon(fullIcon)" alt="">{{pet.pet.name}}</td>
+                <td width="85">{{pet.pet.fiveEle}}</td>
+                <td>LV:{{pet.grade}}</td>
+            </tr>
+        </table>
+    </div>
 </template>
 
 <script>
@@ -64,6 +68,11 @@
 
     table {
         border-collapse:collapse;
+    }
+
+    .pasturePets {
+        padding: 2px 0;
+        border: none;
     }
 
     tr {

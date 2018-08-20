@@ -22,15 +22,15 @@
                             <li>等级</li>
                         </ul>
                         <div>
-                            <prop-item full-icon="pasture/mc05.gif" @active="active" border="none" :props="pastureProp"></prop-item>
+                            <prop-item full-icon="pasture/mc05.gif" @active="active" border="none" :props="pasturePets"></prop-item>
                         </div>
                     </div>
                     <div class="btn-group">
                         <div>
                             牧场宠物数量: 10/30
-                            <kd-button text="主战"></kd-button>
-                            <kd-button text="寄养"></kd-button>
-                            <kd-button text="携带"></kd-button>
+                            <kd-button @click="switchMainPet" text="主战"></kd-button>
+                            <kd-button @click="fosteragePet" text="寄养"></kd-button>
+                            <kd-button @click="carryPet" text="携带"></kd-button>
                             <kd-button text="丢弃"></kd-button>
                         </div>
                     </div>
@@ -38,29 +38,30 @@
                 <div class="content-r">
                     <img class="title" src="../../../../public/images/pasture/muchang_11.jpg" alt="">
                     <div class="block">
-                        <div v-show="petInfo" class="showPet">
-                            <img height="220" src="../../../../public/images/PetPhoto/q116.gif" alt="">
+                        <div v-if="petInfo && activeItem != null" class="showPet">
+                            <img height="220" :src="getPetImg(activeItem.pet.img, 'q')" alt="">
                             <div class="pet-info">
                                 <div @click="petInfoHidden" class="exit">关闭</div>
-                                <div class="pet-name">小玄武</div>
+                                <div class="pet-name">{{activeItem.pet.name}}</div>
                                 <ul>
-                                    <li>五行:水</li>
-                                    <li>生命：2005</li>
-                                    <li>魔法：2005</li>
-                                    <li>攻击：286</li>
-                                    <li>防御：286</li>
-                                    <li>命中：286</li>
-                                    <li>闪避：286</li>
-                                    <li>成长：286</li>
+                                    <li>五行：{{activeItem.pet.fiveEle}}</li>
+                                    <li>等级：{{activeItem.grade}}</li>
+                                    <li>生命：{{activeItem.hp}}</li>
+                                    <li>魔法：{{activeItem.mp}}</li>
+                                    <li>攻击：{{activeItem.attack}}</li>
+                                    <li>防御：{{activeItem.defense}}</li>
+                                    <li>命中：{{activeItem.hit}}</li>
+                                    <li>闪避：{{activeItem.dodge}}</li>
+                                    <li>成长：{{activeItem.growth}}</li>
                                 </ul>
                             </div>
                         </div>
-                        <div v-show="!petInfo">
+                        <div v-if="!petInfo && userPets != null">
                             <div class="arrow-list">
-                                <span v-for="n in 3" :class="{click: n === index}" class="arrow"></span>
+                                <span v-for="n in userPets" :class="{click: n.id === index}" class="arrow"></span>
                             </div>
                             <div class="pet-list">
-                                <img @click="arrowShow(index)" v-for="index in 3" src="../../../../public/images/pasture/k116.gif">
+                                <img :style="v.main ? '' : 'opacity: 0.7'" @click="arrowShow(v.id)" v-for="v in userPets" :title="'等级:' + v.grade + '成长:'+ v.growth" :src="getPetImg(v.pet.img, 'k')">
                             </div>
                             <div class="explain">
                                 <div class="explain-title">说明:</div>
@@ -142,10 +143,12 @@
         data() {
             return {
                 myPet: true,
-                activeItem: '',
+                activeItem: null,
                 index: 1,
                 petInfo: false,
                 trusteeship: false,
+                userPets: null,
+                pasturePets: null,
                 pastureProp: [{
                     name: '小玄武',
                     fiveLine: '水',
@@ -153,7 +156,14 @@
                 }]
             }
         },
+        created: function () {
+            this.getUserPets()
+            this.getPasturePets()
+        },
         methods: {
+            getPetImg: function (v, prefix) {
+                return require('../../../../public/images/PetPhoto/' + prefix + v + ".gif")
+            },
             myPetShow: function () {
                 this.myPet = true
                 this.trusteeship = false
@@ -171,6 +181,57 @@
             },
             arrowShow: function (index) {
                 this.index = index
+            },
+            getUserPets: function () {
+                this.axios.get('/userPet/userPets')
+                    .then(res => {
+                        if (res.data.status === 200) {
+                            this.userPets = res.data.data
+                            let that = this
+                            this.userPets.forEach(v => {
+                                if (v.main) {
+                                    that.index = v.id
+                                }
+                            })
+                        }
+                    })
+            },
+            getPasturePets: function () {
+                this.axios.get('/userPet/pasturePets')
+                    .then(res => {
+                        if (res.data.status === 200) {
+                            this.pasturePets = res.data.data
+                        }
+                    })
+            },
+            fosteragePet: function () {
+                this.axios.put('/userPet/fosteragePet?pid=' + this.index)
+                    .then(res => {
+                        if (res.data.status === 200) {
+                            this.pasturePets = res.data.data.pasturePet
+                            this.userPets = res.data.data.userPet
+                        } else {
+                            alert(res.data.msg)
+                        }
+                    })
+            },
+            carryPet: function () {
+                this.axios.put('/userPet/carryPet?pid=' + this.activeItem.id)
+                    .then(res => {
+                        if (res.data.status === 200) {
+                            this.pasturePets = res.data.data.pasturePet
+                            this.userPets = res.data.data.userPet
+                            this.petInfo = false
+                        }
+                    })
+            },
+            switchMainPet: function () {
+                this.axios.get('/userPet/switchMainPet?id=' + this.index)
+                    .then(res => {
+                        if (res.data.status === 200) {
+                            this.getUserPets()
+                        }
+                    })
             }
         },
         components: {
