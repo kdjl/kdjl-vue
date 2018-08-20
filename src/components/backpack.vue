@@ -9,7 +9,7 @@
                 </table>
             </div>
             <div class="item">
-                <prop-item :width="300" @active="active" :props="backpacks"></prop-item>
+                <prop-item :sid-mapper="sidMapper" :width="300" @active="active" :props="backpacks"></prop-item>
             </div>
         </div>
         <div class="btn-group">
@@ -46,20 +46,41 @@
                 activeItem: null,
                 timeId: null,
                 clickTime: 0,
-                inputNum: 0
+                inputNum: 0,
+                sidMapper: null
             }
         },
         watch: {
           backpacks: function (newValue, oldValue) {
               if (this.activeItem != null) {
                   this.activeItem = newValue.filter(v => {
-                      console.log(v)
                       return v.id === this.activeItem.id
                   })[0]
                   if (this.activeItem != null) {
                       this.checkMaxNum()
                   }
               }
+              let sids = newValue.map(v => {
+                  if (v.equips[0] !== undefined) {
+                      return v.equips[0].suit.id
+                  }
+              });
+              let sidMapper = {}
+              sids.forEach(v => {
+                  if (v !== undefined) {
+                      sidMapper[v] = sidMapper[v] ? sidMapper[v] : {}
+                  }
+                  newValue.forEach(n => {
+                      if (n.equips[0] !== undefined && n.equips[0].suitAttrs[0].sid === v) {
+                          console.log(v)
+                          sidMapper[v].max = n.equips[0].suitAttrs[n.equips[0].suitAttrs.length - 1].equipNum
+                      }
+                  })
+                  if (v !== undefined) {
+                      sidMapper[v].num === undefined ? sidMapper[v].num = 1 : sidMapper[v].num += 1
+                  }
+              })
+              this.sidMapper = sidMapper
           }
         },
         methods: {

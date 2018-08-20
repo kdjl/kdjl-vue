@@ -273,7 +273,7 @@
                 sids.forEach(v => {
                     sidMapper[v] = sidMapper[v] ? sidMapper[v] : {}
                     newValue.forEach(n => {
-                        if (n.equips[0].suitAttrs[0].sid = v) {
+                        if (n.equips[0].suitAttrs[0].sid === v) {
                             sidMapper[v].max = n.equips[0].suitAttrs[n.equips[0].suitAttrs.length - 1].equipNum
                         }
                     })

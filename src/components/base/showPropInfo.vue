@@ -6,9 +6,12 @@
         <template v-if="prop.equips != null && prop.equips.length !== 0">
             <div>{{getType(prop.equips[0].type)}}</div>
             <div :class="{mainAttr: equip.main}" v-for="equip in prop.equips">+{{equip.attr}}{{equip.percentage ? '%' : ''}} {{getAttrType(equip.attrType)}}</div>
-            <template v-if="prop.equips[0].suit != null && prop.equips[0].suit !== undefined">
+            <template v-if="prop.equips[0].suit != null && prop.equips[0].suit !== undefined && sidMapper != null">
                 <div class="suit_name">{{prop.equips[0].suit.name}}({{sidMapper[prop.equips[0].suit.id].num}}/{{sidMapper[prop.equips[0].suit.id].max}})</div>
                 <div :class="suitAttr.equipNum <= sidMapper[prop.equips[0].suit.id].num ? 'green' : 'attr'" v-for="suitAttr in prop.equips[0].suitAttrs">({{suitAttr.equipNum}})套装：+{{suitAttr.attr}}{{suitAttr.percentage ? '%' : ''}} {{getAttrType(suitAttr.attrType)}}</div>
+            </template>
+            <template>
+
             </template>
         </template>
         <div class="info">{{prop.prop.info}}</div>

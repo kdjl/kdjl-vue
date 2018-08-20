@@ -7,7 +7,7 @@
             <td v-if="prop.salePrive">{{prop.salePrive}}</td>
             <td v-if="prop.prop.type">{{prop.prop.type}}</td>
             <td v-if="prop.num">{{prop.num}}</td>
-            <show-prop-info :prop="prop" v-show="mouse.id === prop.id"></show-prop-info>
+            <show-prop-info :sid-mapper="sidMapper" :prop="prop" v-show="mouse.id === prop.id"></show-prop-info>
         </tr>
         <ul v-if="fullIcon" :style="{'width': width, 'border': border}" @click="active('prop' + index)" v-for="(prop,index) in props" :class="{active: activeItem === 'prop' + index}">
             <li><img v-if="fullIcon" :src="getFullIcon(fullIcon)" alt="">{{prop.name}}</li>
@@ -22,7 +22,7 @@
 
     export default {
         name: "propItem",
-        props: ['props', 'width', 'border', 'fullIcon'],
+        props: ['props', 'width', 'border', 'fullIcon', 'sidMapper'],
         computed: {
             inputListeners: function () {
                 return Object.assign({},
