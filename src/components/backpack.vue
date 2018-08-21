@@ -107,8 +107,8 @@
                 this.inputNum = item.num
             },
             checkMaxNum: function () {
-                if (this.inputNum > this.activeItem.number) {
-                    this.inputNum = this.activeItem.number
+                if (this.inputNum > this.activeItem.num) {
+                    this.inputNum = this.activeItem.num
                 }
             },
             useProp: function (num) {

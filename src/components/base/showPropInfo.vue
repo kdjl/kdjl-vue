@@ -1,5 +1,5 @@
 <template>
-    <div class="propAll">
+    <div class="propAll" :style="{left: left + 'px'}">
         <div class="name">{{prop.prop.name}}</div>
         <div class="transaction">{{prop.prop.deal ? '可交易' : '不可交易'}}</div>
         <div class="type">{{prop.prop.type}}</div>
@@ -10,9 +10,6 @@
                 <div class="suit_name">{{prop.equips[0].suit.name}}({{sidMapper[prop.equips[0].suit.id].num}}/{{sidMapper[prop.equips[0].suit.id].max}})</div>
                 <div :class="suitAttr.equipNum <= sidMapper[prop.equips[0].suit.id].num ? 'green' : 'attr'" v-for="suitAttr in prop.equips[0].suitAttrs">({{suitAttr.equipNum}})套装：+{{suitAttr.attr}}{{suitAttr.percentage ? '%' : ''}} {{getAttrType(suitAttr.attrType)}}</div>
             </template>
-            <template>
-
-            </template>
         </template>
         <div class="info">{{prop.prop.info}}</div>
     </div>
@@ -21,7 +18,7 @@
 <script>
     export default {
         name: "showPropInfo",
-        props: ["prop", 'sidMapper'],
+        props: ["prop", 'sidMapper', 'left'],
         methods: {
             getType: function (v) {
                 let typeMap = {
