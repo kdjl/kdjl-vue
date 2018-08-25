@@ -13,12 +13,15 @@
     "axios": "latest"
   },
   "devDependencies": {
+    "@stomp/stompjs": "^4.0.7",
     "@vue/cli-plugin-babel": "^3.0.0-rc.5",
     "@vue/cli-plugin-eslint": "^3.0.0-rc.5",
     "@vue/cli-service": "^3.0.0-rc.5",
     "@vue/eslint-config-prettier": "^3.0.0-rc.5",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
+    "sockjs-client": "^1.1.5",
+    "vue-stomp": "0.0.5",
     "vue-template-compiler": "^2.5.16"
   }
 }

@@ -41,7 +41,6 @@
     width: 290px;
     height: 220px;
     background-color: #fff;
-    overflow: auto;
     border: 1px solid #e6c578;
     border-radius: 5px;
     > ul {
@@ -50,6 +49,10 @@
       padding: 5px 0;
       border-bottom: 1px solid #c99c46;
       color: #c99c46;
+    }
+    > div {
+      overflow: auto;
+      height: 194px;
     }
   }
   > .btn-group {

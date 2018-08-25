@@ -4,21 +4,32 @@ import router from './router'
 import axios from 'axios'
 
 Vue.config.productionTip = false
+let bl = false
 
 axios.defaults.baseURL = "http://127.0.0.1"
 axios.defaults.withCredentials = true
+axios.interceptors.request.use(res => {
+    bl = false
+    return res
+})
 axios.interceptors.response.use(res => {
     if (res.data.status === 200 || res.data.status === 500) {
         return res
     } else {
-        alert(res.data.msg)
+        if (!bl) {
+            alert(res.data.msg)
+            bl = true
+        }
         if (res.data.status === 300) {
             router.push("/")
         }
         return
     }
 }, error => {
-    alert("服务器异常")
+    if (!bl) {
+        alert("服务器异常")
+        bl = true
+    }
     return
 })
 

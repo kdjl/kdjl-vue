@@ -16,11 +16,17 @@ import Main from './views/Main'
 import Choose from './views/Choose'
 import Register from './views/login/register'
 import Login from './views/login/login'
+import Test from './views/Test'
 
 Vue.use(Router)
 
 export default new Router({
     routes: [
+        // {
+        //     path: '/',
+        //     component: Test,
+        //     meta: {title: '测试websocket'}
+        // },
         {
             path: '/',
             component: Login,
